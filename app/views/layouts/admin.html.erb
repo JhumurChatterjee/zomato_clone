@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ZomatoAdmin</title>
+    <%= csrf_meta_tags %>
+
+    <% # Optionally use admin-specific assets here instead of the normal application assets %>
+    <%= stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'admin', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+   
+    <div class="container-fluid">
+    <div class="header">
+      <%= render 'layouts/header' %>
+    </div>
+    <div class="container wrap">
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}", :class => "alert" %>
+    <% end %>
+    
+    <%= yield %> 
+    <%= yield :gmaps %>
+    <div class="push">
+    </div>
+    </div>
+    </div>
+    <footer class="page-footer">
+      <%= render 'layouts/footer' %>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+<% if @user.errors.any? %>
+  <div class="error_messages">
+    <h2>Form is invalid</h2>
+    <ul id="error_explanation">
+      <% @user.errors.full_messages.each do |attr,message| %>
+        <li><p><%= attr %></p><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= link_to "TRY Again",root_url %> 

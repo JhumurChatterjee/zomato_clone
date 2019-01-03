@@ -1,0 +1,47 @@
+<h1>Your Booking Details</h1>
+
+<% if @booking.blank? %>
+  <p>No records</p>
+<% else %>
+  <table class="table table-bordered">
+    <thead class="bg-primary">
+      <tr>
+        <th>Booking id</th>
+        <th>Booking date</th>
+        <th>Booking time</th>
+        <th>Guests</th>
+        <th>Validity</th>
+        <th>Edit Status</th>
+        <th>Delete Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%=@booking.encrypt_id%></td>
+        <td><%=@booking.requested_date%></td>
+        <td><%=@booking.requested_time.to_s(:time)%></td>
+        <td><%=@booking.no_of_guests%></td>
+        <td><%=@booking.validity%></td>
+        <% if @check==1 %>
+          <td><%= link_to "Edit booking ",edit_booking_url(restaurant_id: @booking.restaurant_id,email: @booking.email,id: @booking.id) %></td>
+        <% elsif @booking.validity==false %>
+          <td><b>Expired</b></td>
+        <% else %>
+          <td> You can't edit booking of this date because it's too late</td>
+        <% end %>
+        <% if @check==1 %>
+          <td><%= link_to "Cancel booking",booking_url(id: @booking.id), data: {:confirm => 'Are you sure?'}, :method => :delete  %></td>
+        <% elsif @booking.validity==false %>
+          <td><b>Expired</b></td>
+        <% else %>
+          <td>"You can't cancel booking of this date because it's too late"</td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to "Back to restaurant", show_restaurant_url(id: session[:restaurant_id]), :class=>"btn btn-secondary" %>
+<%= link_to "Back to list", bookings_url(email: session[:email],restaurant_id: session[:restaurant_id]), :class=>"btn btn-secondary"  %>
+
+ 

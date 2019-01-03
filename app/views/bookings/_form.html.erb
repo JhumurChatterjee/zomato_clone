@@ -1,0 +1,63 @@
+<%= form_for @booking do |f|%>
+  <% @booking.errors.full_messages.each do |error| %>
+    <ul>
+      <li><%= error %></li>
+    </ul>
+  <% end %>
+  
+  <div class="booking">
+    
+    <div class="row">
+      <div class="form-group">
+        <%= f.label :requested_date, "Date of booking:",:class=>"col-sm-8 control-label ml-3" %>
+        <div class="col-sm-12 ml-3">
+          <%= f.date_select :requested_date,default: Date.today+1.day %>
+          <div class="row ml-2">
+            <small>Note: Do not Provide date which is more than 10 days from now</small>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :no_of_guests, "No. of guests : ",:class=>"col-sm-12 mx-2 control-label" %>
+        <div class="col-sm-12 mx-4">
+          <%= f.select :no_of_guests, [2,3,4,5,6,7,8,9,10], default: 2 %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :requested_time, "Time : ",:class=>"col-sm-8 control-label" %> 
+        <div class="col-sm-12">
+          <%= f.time_select :requested_time, default: current_time %>
+        </div>
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="form-group">
+        <%= f.label :name, "Name : ",:class=>"col-sm-8 control-label ml-3" %>
+        <div class="col-sm-12">
+          <%= f.text_field :name, :class=>"form-control ml-3", :value => current_user.username %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :email, "Email : ",:class=>"col-sm-8 control-label" %>
+        <div class="col-sm-12">
+          <%= f.email_field :email, :class=>"form-control", :value => current_user.email %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :phone, "Mobile No : ",:class=>"col-sm-8 control-label" %>
+        <div class="col-sm-12">
+          <%= f.text_field :phone, :class=>"form-control" %>
+        </div>
+      </div>
+    </div>
+    <%= f.hidden_field :restaurant_id,:value => session[:restaurant_id] %>
+    <%= f.hidden_field :user_id,:value => current_user.id %>
+
+    
+    <%= f.submit "Submit", :class=>"btn btn-primary ml-3 mb-2" %>
+    <div class="row ml-3">
+      <small>Note: You can Edit or cancel your Booking till it is 2 days left for your desired booking date</small>
+    </div>
+  </div>
+<% end %>
+

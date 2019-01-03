@@ -1,0 +1,13 @@
+<h1>Edit Location</h1>
+<%= link_to admin_locations_path, method: :get , class: "btn btn-secondary mb-2 mr-3" do %>
+  <i>Location Index</i>
+<% end %>
+<%= link_to request.referer, method: :get , class: "btn btn-secondary mb-2" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<%= render 'form' %>
+<%= link_to "Show", admin_location_path, method: :get , class: "btn btn-primary mt-2"  %>
+  
+
+
+

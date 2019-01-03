@@ -1,0 +1,12 @@
+<h1 class="text-center">New Restaurant</h1>
+<%= link_to admin_restaurants_path(:id=> @restaurant.id), method: :get , class: "btn btn-secondary mb-2 back_restaurant" do %>
+  <i>All Restaurants</i>
+<% end %>
+
+<%= link_to admin_posts_path(:id=> @restaurant.id), method: :get , class: "btn btn-secondary mb-2 index" do %>
+  <i>Index Page</i>
+<% end %>
+
+<%= render 'form' %>
+
+

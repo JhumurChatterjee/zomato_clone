@@ -1,0 +1,74 @@
+<h1>Place your Order </h1>
+<%= link_to show_restaurant_url(id: session[:restaurant_id]), method: :get , class: "btn btn-secondary mb-2"  do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<div class="row card w-75 ml-1">
+  <h3 class="card-header">Fill the details</h3>
+  <%= form_for @order do |f| %>
+    <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+    <div class="card-body">
+      <% if params[:address]==nil && (@addressess==nil || @addressess==[])%>
+        <h5 class= "card-title col-sm-12 text-left">Click on below link to set address: </h5>
+        <%= link_to 'Give the address in detail',new_location_url(from: "order",restaurant_id: params[:restaurant_id]), :class => "btn btn-light address ml-3" %> 
+        <div class="col-sm-12 mt-2"> 
+          <small>Note: Please Provide address within 40 miles from the location of our restaurant</small>
+        </div>
+      <% elsif params[:address] != nil %>
+        <h5 class="card-title ml-3">Address: </h5>
+        <%=f.text_field :full_address, class: "form-control col-sm-5 ml-3" , :value=>params[:address], required: true %>
+      <% elsif @addressess %>
+        <h5 class="card-title ml-3">Address: </h5>
+        <%= f.select "full_address", options_for_select(@addressess.collect {|add| add.full_address } ), default: @addressess.last, required: true%>
+        <p class="col-sm-12 mt-2">OR, </p>
+        <h5 class= "card-title col-sm-12 text-left">Click on below link to set address: </h5>
+        <%= link_to 'Give the address in detail',new_location_url(from: "order",restaurant_id: params[:restaurant_id]), :class => "btn btn-light address ml-3" %> 
+      <% end %>
+      <h5 class= "card-title col-sm-12 text-left mt-2">Choose Foods: </h5>
+      <table class="table table-responsive mt-3 col-sm-12">
+        <tr>
+          <th> Item </th>
+          <th> Cost per plate </th>
+          <th> Select </th>
+          <th> Quantity </th>
+        </tr>
+        <% if @restaurant.food_menu != nil %>
+          <% @restaurant.food_menu.each do |key,value| %> 
+            <tr>
+              <td><%= key %></td>
+              <td><%= value %></td>
+              <td>
+                <%=check_box_tag "order[item][]", key %>
+              </td>
+              <td>
+                <%= select_tag "order[quantity][]", options_for_select([2,3,4,5,6,7,8,9,10]), required: true%>
+              </td>
+              <td>
+                <%= f.hidden_field :user_id, :value => session[:user_id] %>
+              </td> 
+            </tr>
+          <% end %>
+        <% else %>
+          <h5>No Food</h5>
+        <% end %>
+      </table> 
+      <%= f.hidden_field :restaurant_id, :value => session[:restaurant_id] %>
+
+      <h5 class= "card-title col-sm-12 text-left">Email</h5>
+      <%= f.email_field :email, :value => session[:email],class: "col-sm-5 form-control ml-3", placeholder: "e.g. abc@abc.com" %>
+
+      <h5 class= "card-title col-sm-12 text-left mt-2">Phone: </h5>
+      <%= f.text_field :phone, class: "col-sm-5 form-control ml-3",placeholder: "e.g. 1234567890",:required => true  %>
+
+      <%= f.submit "Order", :class=>"btn btn-primary mt-2 ml-3" %>
+      <div class="col-sm-12 mt-2"> 
+        <small>Note: You can cancel this order within 5 minutes from ordering</small>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+

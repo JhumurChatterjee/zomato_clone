@@ -1,0 +1,141 @@
+<header class="row">
+  <h1 class= "col-sm-6">Restaurants</h1>
+  <p class="col-sm-6">
+    <%= link_to "All Restaurants", admin_restaurants_path(:id=> @restaurant.id), method: :get , class: "btn btn-secondary mb-2 mt-2 float-right" %>  
+  </p>
+</header>
+<section class="row">
+<p class="col-sm-12">
+  <strong>Name:</strong>
+  <%= @restaurant.name %>
+</p>
+<p class="col-sm-12">
+  <strong>Type:</strong>
+  <%= @restaurant.category %>
+</p>
+<p class="col-sm-12">
+  <strong>Location:</strong>
+  <%= @restaurant.situated_at %>
+</p>
+</section>
+<section class="row">
+  <% if @restaurant.food_menu!={} %>
+    <table class="col-sm-5 table table-bordered menu">
+      <thead>
+        <tr class="menu_heading bg-primary"><th colspan="2">Menu</th></tr>
+        <tr>
+          <th>Food Item</th>
+          <th>Price</th>
+        </tr>   
+      </thead>
+      <tbody>
+        <% @restaurant.food_item.each_slice(2) do |food| %>
+          <tr>
+            <td><%= food[0] %></td>
+            <td><%= food[1] %></td>
+          </tr>
+        <% end %>
+         
+      </tbody>
+    </table>
+  <% else %>
+    <p class="col-sm-5"><b>No food Added </b></p>
+    <div class="col-sm-12">
+      <%= link_to "Add new Food", admin_new_food_url(id: @restaurant.id), :class => "btn btn-primary" %>
+    </div>
+  <% end %> 
+  <article class="col-sm-7">
+    <% if @restaurant.restaurant_image %>
+      <section class="row img_menu">
+        <% @restaurant.restaurant_image.each do |img| %>
+          <article class="col">
+            <%= link_to (image_tag img, size: "300x300", class: 'gallery img-responsive' , target: '_blank'),img %>
+            <%=link_to'Delete',admin_delete_image_attachment_url(id: img.id),method: :delete,
+                data: { confirm: 'Are you sure?' }%>
+          </article>
+        <% end %>
+      </section>
+    <% end %>
+  </article>
+</section>
+<section class="row">
+  <% if @reviews.blank? %>
+    <h3 class="col-12">No reviews from users </h3>
+  <% else %> 
+   <table class="table table-bordered">
+      <tr class="menu_heading bg-primary"><th colspan="5">Reviews By Users</th></tr>
+      <tr>
+      <th>Review Rating</td>
+      <th>Review Comment</th>
+      <th>User_id</th>
+      <th>Approved</th>
+      </tr>
+      <% @reviews.each do |review|%>
+      <tr>
+      <td><div class="star-rating" data-score= <%= review.rating %> ></div></td>
+      <td><%= review.comment%></td>
+      <td><%= review.user_id %></td>
+      <td>
+        <%=form_for(review) do |f|%>
+          <%=f.check_box :approved %>
+          <%=button_to "approve",review_path(id: review.id)%>
+        <% end %>
+      </td>
+      <td><%= link_to 'DELETE', review_url(id: review.id),:method => 'delete',
+      data: {:confirm => "Are you sure you want to delete this review?"}, :class=>"login show"%></td>
+      </tr>
+      <% end %>
+   </table> 
+  <% end %>
+   <% if @posts.blank? %>
+     <h3 class="col-12">No posts from User</h3>
+   <% else %>
+     <table class="table table-bordered">
+       <tr class="menu_heading bg-primary"><th colspan="5">Posts By Users</th></tr>
+       <tr>
+         <th>Post Body</th>
+         <th colspan=2>Post Image</th>
+         <th>User Id</th>
+         <th>Approved</th>
+       </tr>
+       <% for i in 0..@posts.size-1 do %>
+       <tr>
+         <td><%= @posts[i].body %></td>
+         <td>
+         <% if @posts[i].image.attached? %>
+           <% @posts[i].image.each do |img| %>
+             <div><%= link_to (image_tag img, size: "50x50", class: 'gallery img-responsive' , target: '_blank'),img %>
+             <%=link_to'Delete',admin_delete_image_attachment_url(id: img.id),method: :delete,
+                data: { confirm: 'Are you sure?' }%></div>
+             <% end %>
+           <% end %>
+         </td>
+         <td colspan="2"><%= @user.id %></td>
+         <td>
+         <%=form_for(@posts[i]) do |f|%>
+          <%=f.check_box :approved %>
+          <%=button_to "approve",post_path(id: @posts[i].id)%>
+         <% end %>
+        </td>
+       </tr>
+      <% end %>
+     </table>
+  <% end %>
+  
+<p>
+  <%= link_to "Edit", {:action => 'edit',:id => @restaurant.id}, :class => "btn btn-primary" %> 
+  <%= link_to "Destroy",{:action => 'destroy',:id => @restaurant.id}, data: { :confirm => 'Are you sure?'}, :method => :delete, :class => "btn btn-danger" %> 
+</p>
+</section>
+<script>
+  $(document).ready(function() {
+   $('.star-rating').raty({
+   readOnly: true,
+   score: function() {
+     return $(this).attr('data-score');
+   },
+   path: '/assets/'
+   });
+});
+ 
+</script>

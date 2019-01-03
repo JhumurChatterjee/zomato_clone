@@ -1,0 +1,63 @@
+<h1>Post Details</h1>
+<%= link_to posts_url(id: params[:id]), method: :get , class: "btn btn-secondary mb-2"  do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<div class="card">
+  <div class="card-header">
+    <h4 class="float-left"><%= @restaurant.name %></h4>
+    <span class="float-right"><%= link_to 'Edit Post', {:action => 'edit', :id => @post.id},:class => "btn btn-primary" %>
+      <%= link_to 'DELETE Post', {:action => 'delete', :id => @post.id},
+        data: { confirm: "Are you sure you want to delete this whole post?"}, :class=> "btn btn-danger" %></span>
+  </div>
+  <div class="card-body row">
+    <h5 class="card-title col-sm-12">Body : </h5>
+    <p class="card-text col-sm-12"><%= @post.body %></p>
+    <h5 class="card-title col-sm-12">Created Date: </h5>
+    <p class="card-text col-sm-12"><%= @post.created_at %></p>
+    <% if @post.image.blank? %>
+      <h4 class="col-sm-12">No Image </h4>
+    <% else %>
+      <h4 class="col-sm-12">Image</h4>
+      <% if @post.image %>
+        <% @post.image.each do |img| %>
+          <div class="col"><%= link_to (image_tag img, size: "200x200", class: 'gallery img-responsive', target: '_blank'),img %>
+             <%=link_to 'Delete' ,delete_image_attachment_url(id: img.id),method: :delete,
+                data: { confirm: 'Are you sure?' }%></div>
+        <% end %> 
+      <% end %>
+    <% end %>
+    <% if @review.blank? %>
+      <h4 class="col-sm-12">You have not reviewed this restaurant </h4>
+    <% else %>
+      <h4 class="col-sm-12 mt-3">Reviews by you for this restaurant</h4>
+      <% for i in 0..@review.size-1 do %>
+        <table class="table table-responsive col-sm-12">
+          <tr>
+            <th>Rating</th>
+            <th>Comment</th>
+          </tr>
+          <tr>
+            <td><div class ="star-rating" data-score= <%= @review[i].rating %> ></div></td>
+            <td><%= @review[i].comment %></td>
+            <td><%= link_to 'Edit',edit_review_url(id: @review[i].id, rest_id: @review[i].restaurant_id), :class=>"btn btn-primary"%></td>
+            <td><%= link_to 'DELETE', review_url(id: @review[i].id),:method => 'delete',
+              data: {:confirm => "Are you sure you want to delete this review?"}, :class=>"btn btn-danger" %></td>
+          </tr>
+        </table>
+      <%end%>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+   $('.star-rating').raty({
+   readOnly: true,
+   score: function() {
+     return $(this).attr('data-score');
+   },
+   path: '/assets/'
+   });
+});
+ 
+</script>

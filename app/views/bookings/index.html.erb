@@ -1,0 +1,40 @@
+<h1> Your Bookings </h1>
+<%= link_to  show_restaurant_url(id: session[:restaurant_id]), method: :get , class: "btn btn-secondary mb-2" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<h2>Seats available for comming 10 days</h2>
+<% if @table != [] %>
+  <table class="table table-bordered w-50">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Seats</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for i in 0..@seats.size-1 %>
+        <tr>
+      
+          <td><%= Date.today+i.days %></td>
+          <td><%= @seats[i] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h3>No records</h3>
+<% end %> 
+<h2>Your bookings</h2>
+<ul class="list-group">
+  <li class="list-group-item bg-primary booking">Bookings</li>
+  <%  if @bookings!=[] %>
+    <% @bookings.each do |booking| %>
+      <li class="list-group-item list-group-item-action">Booking on <%= link_to booking.requested_date.to_date, show_booking_url(email: booking.email, id: booking.id), :class => "login link" %> <span>  & Time is </span><%= booking.requested_time.to_s(:time) %> </li>
+    <% end %>
+  <% else %>
+    <h3>No bookings</h3>
+  <% end %>
+</ul>
+<%= link_to "Book a Table", new_booking_url(restaurant_id: session[:restaurant_id]),:class=> "btn btn-primary btn-small col-sm-2 mt-2 mb-2" %>
+
+

@@ -1,0 +1,25 @@
+<h1>Edit Food </h1>
+<%= link_to admin_food_show_url(:id=> @restaurant.id), method: :get , class: "btn btn-secondary mb-2" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<%= form_tag admin_edit_food_update_url(id: @restaurant.id) do  %>
+  <div class="card">
+    <h5 class="card-header text-center">Edit Food For <%= @restaurant.name %></h5>
+    <% @restaurant.food_item.each_slice(2) do |food| %>
+      <div class="form-row justify-content-center">
+      
+        <%= label_tag :food_item, "Food Name", :class=>"col-sm-4 form-control-label my-3 mx-3" %>
+        <%= label_tag :food_item, "Food Price", :class=>"col-sm-4 form-control-label my-3 mx-3" %>
+        <%= text_field_tag :restaurant, food[0] ,name: "restaurant[food_item][]", :class => " col-sm-4 form-control my-3 mx-3" %> 
+  
+        <%= text_field_tag :restaurant, food[1] ,name: "restaurant[food_item][]", :class => "col-sm-4 form-control my-3 mx-3" %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="col my-3 offset-sm-5">
+        <%= submit_tag("Save Food", :class => "btn btn-primary" ) %>
+      </div>
+    </div>
+  </div>
+<% end %>
+

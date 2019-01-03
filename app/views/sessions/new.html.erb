@@ -1,0 +1,158 @@
+   <div class = "row img-400">
+    <div class="col-12">
+      <h1 class="head">ZomatoClone</h1>
+      <div class = "linking">  
+        <%= link_to "Book a Table",show_all_restaurant_url, :class => "login common" %>
+        <%= link_to "Order your Food",show_all_restaurant_url, :class => "login common"%> 
+      </div>     
+      <div class="search-bar">
+        <%= form_tag(common_search_path, :method => 'get',:authenticity_token => false,class: 'navbar-form navbar-left w-100') do %>  
+          <div class="input-group">  
+            <%= search_field_tag :search, params[:search], placeholder: "Search for Location Food or Restaurants", class: "form-control mb-3" %>  
+            <div class="input-group-btn">  
+              <%= button_tag(type: "submit", class: "btn btn-primary") do %>
+                <i class="fa fa-search"></i>
+              <% end %>
+            </div>   
+          </div>
+        <% end %>
+      </div>
+      <img src="../images/pexels-photo-262978.jpeg" class="img-fluid" alt="Responsive image">
+      <div class="button_grp">
+        <% if !current_user %>
+  <!-- Button trigger-->
+          <button type="button" class="btn btn-link log_in_button" data-toggle="modal" data-target="#LoginModal">
+          Log in
+          </button>
+          <button type="button" class="btn btn-light" data-toggle="modal" data-target="#SignupModal">create an account</button>
+        <% end %>
+      </div>
+    </div>
+    
+    </div>
+
+   <h3 class="location">Current Location is <%= Geocoder.search(request.location).first.city %></h3>
+  <h4>Select one category:</h4>
+
+  <div class="row category-search">
+  <%= form_tag search_url do %>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    <%= radio_button_tag(:category,"Cafe")%>
+      <%= label(:category_cafe,"Cafe")%>
+    <%= radio_button_tag(:category,"Multi-Cuisine")%>
+      <%= label(:category_multi_cuisine,"Multi-Cuisine")%>
+    <%= radio_button_tag(:category,"Barbeque")%>
+      <%= label(:category_barbeque,"Barbeque")%>
+    <%= button_tag(type: "submit" ,class: "btn btn-primary") do %>
+      <span>Check Restaurant</span>
+    <% end %>
+  <% end %>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Log into ZomatoClone</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         
+        <%= form_tag(login_url) do %>
+        
+        <p>Username or Email:</br> <%= text_field_tag :username_or_email,nil, required: true %></p> 
+        <p>Password:</br> <%= password_field_tag :login_password,nil, required: true %></p> 
+        <%= label_tag :remember_me, class: "checkbox inline" do %>
+          <%= check_box_tag :remember_me %>
+          <span>Remember me on this computer</span>
+        <% end %></br>
+        <% if current_user %>
+          <p><b> You are already logged in </b></p>
+        <% else %>
+          <%= button_tag(type: "submit" ,class: "btn btn-primary") do %>
+            <span>Login</span>
+          <% end %>
+        <% end %>
+        <% end %>
+      </div>
+      <div class="float-left">
+      <p class="ml-3"> OR, </p>
+      <p class="ml-3"> Login With: </p>
+       <%= link_to  "/auth/facebook", class: "btn btn-primary mb-3 ml-3" do %>
+         <i class="fa fa-facebook"></i>
+       <% end %>
+       
+       <%= link_to  "/auth/google_oauth2", :class => "btn btn-primary mb-3 ml-3" do %>
+         <i class="fa fa-google"></i>
+       <% end %>
+  
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="SignupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sign up for ZomatoClone</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1>Sign Up</h1>
+          
+          <%= form_for @user, :html => {:enctype=>"multipart/form-data"} do |f| %>
+            
+            <div class="field">
+              <%= f.label :username %><br />
+              <%= f.text_field :username %>
+            </div>
+            <div class="field">
+              <%= f.label :email %><br />
+              <%= f.email_field :email %>
+            </div>
+            <div class="field">
+              <%= f.label :password %><br />
+              <%= f.password_field :password %>
+            </div>
+            <div class="field">
+              <%= f.label :password_confirmation %><br />
+              <%= f.password_field :password_confirmation %>
+            </div>
+            <% if current_user %>
+              <%= f.button(type: "submit" ,class: "btn btn-primary", disabled: true) do %>
+                <span>Signup</span>
+              <% end %>
+            <% else %>
+              <%= f.button(type: "submit" ,class: "btn btn-primary") do %>
+                <span>Signup</span>
+              <% end %>
+            <% end %>
+          <% end %>
+        
+      </div>
+      <div class="float-left">
+        <p class="ml-3"> OR, </p>
+        <p class="ml-3"> Login With: </p>
+        <%= link_to  "/auth/facebook", class: "btn btn-primary mb-3 ml-3" do %>
+          <i class="fa fa-facebook"></i>
+        <% end %>
+       
+        <%= link_to  "/auth/google_oauth2", :class => "btn btn-primary mb-3 ml-3" do %>
+          <i class="fa fa-google"></i>
+        <% end %>
+  
+      </div>
+    </div>
+  </div> 
+</div>
+
+

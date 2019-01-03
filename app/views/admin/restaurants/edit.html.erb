@@ -1,0 +1,8 @@
+<h1 class= "text-center">Edit Restaurant</h1>
+<%= link_to admin_restaurants_path(:id=> @restaurant.id), method: :get , class: "btn btn-secondary mb-2 back_restaurant" do %>
+  <i class="fa fa-arrow-left">All Restaurant</i>
+<% end %>
+
+<%= render 'form' %>
+
+

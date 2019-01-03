@@ -1,0 +1,20 @@
+<h1>Add new Food</h1>
+
+<%= link_to admin_food_show_url(:id=> @restaurant.id), method: :get , class: "btn btn-secondary mb-2" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+
+<div class="card w-75"> 
+  <h4 class="card-header">
+    Add Food for <%= @restaurant.name %>
+  </h4>
+  <div class="card-body">
+    <%= form_tag  admin_new_food_create_url(id: @restaurant.id) do  %>
+      <h5 class="card-title">Food Item</h5>
+      <%= text_field :food_item, "", name: "restaurant[food_item][]", :class=>"form-control w-50 my-3", required: true %>
+      <h5 class="card-title">Food Price</h5>
+      <%= text_field :food_item, "", name: "restaurant[food_item][]", :class=>"form-control w-50 my-3", required: true %> 
+      <%= submit_tag("Add Food", :class=> "btn btn-primary") %>
+    <% end %>
+  </div>
+</div>

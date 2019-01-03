@@ -1,0 +1,39 @@
+<div class = "card restaurant_form">
+  <h4 class="card-header">Restaurant Details</h4>
+  <%= form_for [:admin,@restaurant], html: {:enctype=>"multipart/form-data"}  do |f| %>
+    <div>
+      <% if params[:address] == nil && @restaurant.situated_at == nil%>
+        <h6 class= "card-title col-sm-12 text-left mt-3">Click on below link to set address: </h6>
+        <%= link_to 'Give the address in detail',new_admin_location_url(from: "restaurant"), :class => "btn btn-light address ml-3" %>
+      <% elsif @restaurant.situated_at %>
+        <h6 class= "card-title col-sm-12 text-left mt-3">Click on below link to Edit address: </h6>
+        <%= link_to 'Give the address in detail',edit_admin_location_url(from: "restaurant", id: @restaurant.location_id), :class => "btn btn-light address ml-3 " %>
+      <% else %>
+        <div class="row ml-4">
+          <%= f.label :Address, :class => "form-control-label col-sm-12 text-left" %>
+          <%= f.text_field :situated_at,:value => params[:address], :class => "col-sm-11 form-control", required: true %>
+        </div>
+      <% end %>
+    </div>
+    <div class="card-body">
+      <div class="row ml-1">
+        <%= f.label :Name, "Name of the Restaurant :", :class => "form-control-label col-sm-12 text-left" %>
+        <%= f.text_field :name, :class => "col-sm-11 form-control mb-2", required: true %>
+      </div>
+      <div class= "row ml-1">
+        <%= f.label :Category, "Ctaegory :", :class => "form-control-label col-sm-12 text-left" %>
+        <%= f.select :category, [ 'Multi-Cuisine', 'Cafe', 'Barbeque', 'Other'], {:prompt => 'Select One'}, class: "form-control col-sm-11 mb-2", required: true %>
+      </div>
+      <div class="row ml-1">
+        <%= f.label :uploads, :class => "form-control-label col-sm-12 text-left mb-2" %>
+        <%= f.file_field :restaurant_image,multiple: true  %>
+      </div>
+      <div class="form-group">
+        <%= f.hidden_field :location_id,:value => params[:id], class: "form-control" %>
+      </div>
+      <div class="row">       
+        <%= f.submit "Submit", :class => "btn btn-primary ml-3"%>
+      </div>
+    </div>
+  <% end %>
+</div>

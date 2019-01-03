@@ -1,0 +1,33 @@
+<h1>All Bookings</h1>
+<%= link_to "Index Page",admin_posts_path, method: :get , class: "btn btn-secondary mb-2 float-right" %>
+  
+<table class="table table-bordered">
+  <thead class= "bg-dark">
+    <tr>
+      <th class="text-white">Booking id</th>
+      <th class="text-white">Booking date</th>
+      <th class="text-white">Booking time</th>
+      <th class="text-white">Email</th>
+      <th class="text-white">Name</th>
+      <th class="text-white">Guests</th>
+      <th class="text-white">Validity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @booking != [] %>
+      <% @booking.each do |book| %>
+        <tr>
+          <td><%=book.encrypt_id%></td>
+          <td><%=book.requested_date%></td>
+          <td><%=book.requested_time.to_s(:time)%></td>
+          <td><%= book.email%></td>
+          <td><%= book.name %></td>
+          <td><%=book.no_of_guests%></td>
+          <td><%=book.validity%></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><td colspan="7">No bookings yet</td></tr>
+    <% end %>
+  </tbody>
+</table>

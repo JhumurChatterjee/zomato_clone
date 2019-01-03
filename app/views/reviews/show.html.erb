@@ -1,0 +1,28 @@
+<h1>Review Details  </h1>
+<%= link_to posts_url, method: :get , class: "btn btn-secondary mb-2"  do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<div class="card w-75">
+  <h4 class="card-header">Review for <%= @restaurant.name %></h4>
+  <div class="card-body">
+    <h5 class="card-title">Restaurant situted at</h5> 
+    <p class="card-text"><%= @restaurant.situated_at %></p>
+    <h5 class="card-title">Rating</h5>
+    <div class="star-rating" data-score= <%=@review.rating %> ></div>
+    <h5 class="card-title">comment</h5>
+    <p class="card-text"><%= @review.comment %></p>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+   $('.star-rating').raty({
+   readOnly: true,
+   half : true,
+   score: function() {
+     return $(this).attr('data-score');
+   },
+   path: '/assets/'
+   });
+});
+ 
+</script>

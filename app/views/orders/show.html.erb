@@ -1,0 +1,56 @@
+<h1>Your Order Detail</h1>
+<div class="card w-75">
+  <div class="card-header">
+    <p class="mt-2"><b>Your Order id</b> : <%= @order.encrypt_id %>
+      <span class="float-right"><b>Status :</b>
+        <% if @order.validity==true %>
+          <%= link_to "Delete Order", order_url(restaurant_id: @order.restaurant_id, id: @order.id, user_id: current_user.id), data: {:confirm => "Are you sure?" }, :method => :delete, :class=> "btn btn-danger"%><br/>
+        <% else %>
+        You can not delete the order
+        <% end %>
+      </span>
+    </p>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Email:</h5>
+    <p class="card-text"><%= @order.email %></p>
+    <h5 class="card-title">Phone:</h5>
+    <p class="card-text"><%= @order.phone %></p>    
+    <h5 class="card-title">Bill:</h5>
+    <p class="card-text"><%= @order.total %></p>
+    <h5 class="card-title">Delivery Charges:</h5>
+    <p class="card-text"><%= @delivery %></p>
+    <h5 class="card-title">All Total:</h5>
+    <p class="card-text"><%= @order.total+@delivery %></p>
+    <h5 class="card-title">Address:</h5>
+    <p class="card-text"><%= @order.full_address %></p>   
+  </div>
+</div>
+
+<h3 class="mt-2">Your Orderd Item</h3>
+<table class="table table-bordered w-75">
+  <thead class="bg-primary">
+    <tr>  
+      <th> Item </th>
+      <th> quantity </th>
+      <th> Cost </th> 
+    </tr>
+  </thead>
+  <tbody>
+    <% for i in 0..@order.hashing.size-1 do %>  
+      <tr> 
+        <td><%= @order.hashing[i].keys[0] %></td>
+        <td><%= @order.hashing[i].values[0] %></td>
+        <% @restaurant.food_menu.each do |k,v| %>
+          <% if k==@order.hashing[i].keys[0] %>
+            <td><%= v %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to List", orders_url(user_id: @order.user_id), :class=>"btn btn-secondary" %>
+<%= link_to "Back to Restaurant", show_restaurant_url(id: session[:restaurant_id]), :class=>"btn btn-secondary" %>
+

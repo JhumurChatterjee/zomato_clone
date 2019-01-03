@@ -1,0 +1,25 @@
+<h1>Table Details </h1>
+<%= link_to admin_tables_url, method: :get , class: "btn btn-secondary mb-2" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<table class="table table-bordered">
+  <tr>
+    <th>Id </th>
+    <th>Four Seater </th>
+    <th>Six Seater </th>
+    <th>Two Seater </th>
+    
+    <th>Restaurant</th>
+  </tr>
+  <tr>
+    <td><%= @table.id %></td>
+    <td><%= @table.four_seater %></td>
+    <td><%= @table.six_seater %></td>
+    <td><%= @table.two_seater %></td>
+    
+    <td><%= @restaurant.name %> </td>
+    <td><%= link_to "Edit", edit_admin_table_url(id: @table.id), :class=>"btn btn-primary" %></td>
+  </tr>
+</table>
+
+ 

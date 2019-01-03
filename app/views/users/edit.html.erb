@@ -1,0 +1,26 @@
+<h1>Edit your Profile</h1>
+<%= link_to posts_url(id: params[:id]), method: :get , class: "btn btn-secondary mb-2"  do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<div class="card w-75"> 
+  <h4 class="card-header">Change Details</h4>
+  <div class="card-body">
+    <%= form_for @user do |f| %>
+      <h5 class="card-title">Username:</h5>
+      <%= f.text_field :username, :class => "form-control w-50" %>
+  
+      <h5 class="card-title mt-2">Email:</h5>
+      <%= f.text_field :email, :class => "form-control w-50" %>
+
+      <h5 class="card-title mt-2">Password</h5>
+      <%= f.password_field :password, :class => "form-control w-50" %>
+
+      <h5 class="card-title mt-2">Password Confirmation:</h5>
+      <%= f.password_field :password_confirmation, :class => "form-control w-50" %>
+
+      <%= f.submit "Submit", :class => "btn btn-primary mt-2"%>
+    <% end %>
+  </div>
+</div>
+
+

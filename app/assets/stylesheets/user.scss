@@ -1,0 +1,175 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:    border-box;
+  box-sizing:         border-box;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.img-400 {
+  max-width: 100% !important;
+  height: 600px !important;
+  overflow: hidden;
+  
+}
+
+.logout_path {
+  color: white;
+  margin-right: 6px;
+}
+
+.log_in_button {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.log_in_button:hover {
+  color: #FFFFFF;
+}
+
+.img-400 img {
+  opacity: 0.8;
+  position: relative;
+}
+
+.alert {
+  margin: 10px;
+  border: 1px solid black;
+}
+
+
+.location {
+  margin-top: 20px;
+}
+
+.category-search {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.push {
+  height: 160px;
+}
+
+.page-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5
+  
+}
+
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1
+  
+}
+
+.linking {
+  float: right;
+  margin-top: 25px;
+}
+
+.head {
+  margin-top: 10px;
+  float: left;
+}
+
+.wrap {
+  margin-top: 60px;
+}
+
+.head {
+  width: auto;
+}
+
+.button_grp {
+  position: absolute;
+  top: 140px;
+  right: 120px;
+}
+
+.login {
+  color: #FFFFFF;
+  font-weight: bold
+}
+
+.login:hover {
+  color: #FFFFFF;
+  text_decoration :underline;
+}
+
+.login_btn {
+  float: right;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.user {
+  color: #FFFFFF;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.show {
+  float: left;
+  color: #000000;
+  margin-left: 20px;
+}
+
+.show:hover {
+  color: #000000;
+}
+
+.common {
+  color: #000000;
+  float: right;
+  margin-left: 10px;
+}
+
+.common:hover {
+  color: #000000;
+}
+
+.back {
+  display: block;
+  color: #000000;
+  font-weight: bold;
+}
+
+.post {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.post:hover {
+  color: #FFFFFF;
+}
+
+.error_messages {
+  margin-top: 10px;
+  border: 1px solid black;
+}
+
+#star {
+  margin-left: 20px;
+}
+

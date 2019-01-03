@@ -1,0 +1,13 @@
+<h1>Your orders </h1>
+<%= link_to show_restaurant_url(id: session[:restaurant_id]), method: :get , class: "btn btn-secondary mb-2 mr-3" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %></h1>
+<ul class="list-group w-75">
+  <li class="list-group-item active user_header"> Your Orders </li>
+  <% for i in 0..@order.size-1 do %>
+    <li class="list-group-item list-group-item-action"><b>Your order dated as</b> <%= link_to @order[i].created_at.to_date, order_url(restaurant_id: @order[i].restaurant_id,user_id: session[:user_id],id: @order[i].id), :class => "login link" %></li>
+  <% end %>
+</ul>
+
+
+

@@ -1,0 +1,29 @@
+<%= link_to admin_tables_url, method: :get , class: "btn btn-secondary mb-2 mr-2" do %>
+  <i class="fa fa-arrow-left">Back to List</i>
+<% end %>
+<%= link_to admin_restaurants_url, method: :get , class: "btn btn-secondary mb-2" do %>
+  <i class="fa fa-arrow-left">Back to Restaurant</i>
+<% end %>
+<div class="card w-75">
+  <h5 class="card-header">Table Records by admin</h5>
+  <%= form_for [:admin, @table] do |f| %>
+    <div class="card-body">
+      <div class="row">  
+        <%= f.label :Six_seater,:class=>"col-sm-12 card-title" %>
+        <%= f.text_field :six_seater, :class => "col-sm-10 form-control ml-3 mb-3" %>
+      </div>
+      <div class="row">  
+        <%= f.label :Four_seater, :class=>"col-sm-12 card-title" %>
+        <%= f.text_field :four_seater, :class => "col-sm-10 form-control ml-3 mb-3" %>
+      </div>
+      <div class="row">  
+        <%= f.label :Two_seater, :class=>"col-sm-12 card-title" %>
+        <%= f.text_field :two_seater, :class => "col-sm-10 form-control ml-3 mb-3" %>
+      </div>
+      <p>
+        <%= f.hidden_field :restaurant_id, :value => params[:id] %>
+      </p>
+      <p><%= f.submit 'Create', name: 'Create Table', :class => "btn btn-primary"%></p>
+    </div>
+  <% end %>
+</div>

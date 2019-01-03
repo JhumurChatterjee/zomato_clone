@@ -1,0 +1,6 @@
+<h1>Edit Booking </h1>
+<%= link_to show_restaurant_url(id: session[:restaurant_id]), method: :get , class: "btn btn-secondary mb-2"  do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+
+<%= render 'form' %>

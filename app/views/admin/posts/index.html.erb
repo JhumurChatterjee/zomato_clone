@@ -1,0 +1,28 @@
+<h1> Hello Admin </h1>
+<h3>User's details </h3>
+<ul class="container-small list-group mb-3">
+  <li class="list-group-item bg-primary text-white user_header"> Click on the user name for Details </li>
+  <% @users.each do |p| %>  
+    <li class="list-group-item list-group-item-action row content">
+      <%= link_to p.username, {:action => 'show_user_details',:id => p.id},:class => "login show" %>  </li>
+  <% end %>
+</ul>
+<div class="container-small">
+  <div class="row">
+    <p class="col">
+      <%= link_to 'Location Search', admin_locations_path, method:'get', :class => "btn btn-primary"%>
+    </p>
+    <p class="col"> 
+      <%= link_to 'All Restaurants', admin_restaurants_path, method:'get', :class => "btn btn-primary"%> 
+    </p>
+    <p class="col"> 
+      <%= link_to 'Show All Bookings',admin_all_bookings_url, :class => "btn btn-primary" %>  
+    </p>
+    <p class="col">
+      <%= link_to 'Table Details', admin_tables_url, :class => "btn btn-primary" %>
+    </p>
+    <p class="col">
+      <%= link_to 'Orders Details', admin_orders_url, :class => "btn btn-primary" %>
+    </p>
+  </div>
+</div>

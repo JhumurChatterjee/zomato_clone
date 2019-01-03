@@ -1,0 +1,152 @@
+<h1 class="ml-3">Details of <%=@restaurant.name%>
+<%= link_to root_url, method: :get , class: "btn btn-secondary mb-2 float-right mr-3" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %></h1>
+<% if @restaurant.restaurant_image %>
+  <section class = "row imgbox">
+    <% @restaurant.restaurant_image.each do |img| %>
+      <div class = "col-sm">
+        <%= link_to (image_tag img, class: "img-responsive col-sm"),img %>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+<section class="row details">
+  <aside class="col-sm-5 links link_heading">
+    <ul class="list-group">
+      <li class="list-group-item active">
+      <% if !current_user %>
+        <%= link_to  "Sign in  ", root_url(from: "restaurant",restaurant_id: @restaurant.id), :class=>"login show" %> to place a booking and Order food online
+      <% else %>
+        <p><b>Place Booking or Order by clicking links</b></p>
+      <% end %>
+      </li>
+      <li class="list-group-item list-group-item-action"><%= link_to_if current_user ,"Book a Table",bookings_url(email: session[:email],restaurant_id: @restaurant.id), :class => "login show" %> </li> 
+  
+      <li class="list-group-item list-group-item-action"><%= link_to_if current_user, "Order your Food",new_order_url(restaurant_id: @restaurant.id), :class => "login show" %></li>
+      <li class="list-group-item list-group-item-action">
+        <% if !@booking.blank?  %>
+          <%= link_to_if current_user, "Your Booking Details",bookings_url(email: session[:email],restaurant_id: @restaurant.id), :class => "login show" %>
+        <% else %>
+          <p class="ml-3"><b>No Booking</b></p>
+        <% end %>
+      </li>
+      <li class="list-group-item list-group-item-action">
+        <% if !@order.blank?  %>
+          <%= link_to_if current_user, "Your order Details",orders_url(restaurant_id: @order[0].restaurant_id,user_id: @order[0].user_id,id: @order[0].id,email: session[:email]), :class => "login show" %>
+        <% else %>
+          <p class="ml-3"><b>No Order</b></p>
+        <% end %>
+      </li>
+      <li class="list-group-item list-group-item-action">
+        <%= link_to_if current_user, "Add Review",new_review_path(rest_id: @restaurant.id),:class => "login show" %>
+      </li>
+      <li class="list-group-item list-group-item-action">
+        <%= link_to_if current_user, "You have been here? Post a Picture",new_post_path(restaurant_id: @restaurant.id, user_id: session[:user_id]),:class => "login show" %>
+      </li>
+      
+    </ul> 
+  </aside>
+  <article class="col-sm-7">
+    <p><b>Name</b></p>
+    <%= @restaurant.name %>
+    <p><b>Category</b></p>
+    <%= @restaurant.category %>
+    <p><b>Location </b></p>
+    <%= @restaurant.situated_at %><br/>
+    
+    <p><b>Description</b></p>
+    <p>This is a multicuisine family restaurant</p> 
+  </article>
+</section>
+<section class="row">
+  <table class="col-sm-5 table table-bordered menu user_menu">
+    <thead>
+      <tr class="menu_heading bg-primary"><th colspan="2">Menu</th></tr>
+      <tr>
+        <th>Food Item</th>
+        <th>Price</th>
+      </tr>   
+    </thead>
+    <tbody>
+      <% if @restaurant.food_item != [] %>
+        <% @restaurant.food_item.each_slice(2) do |value| %>
+          <tr>
+            <td><%= value[0] %></td>
+            <td><%= value[1] %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="2">No foods added</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+  <article class="col-sm-7">
+    <h3 class="reviews">Reviews Uploaded</h3>
+    <% if @reviews.blank? %>
+      <p class="reviews">Be the first to add review..</p>
+      <% if !current_user %>
+        <%= link_to 'Sign up to add review',root_url(from: "restaurant", restaurant_id: @restaurant.id),:class => "ml-4" %>
+      <% end %>
+    <% else %>
+      <table class="table table-bordered reviews">
+        <tr class="menu_heading bg-primary"><th colspan="3">Reviews</th></tr>
+        <tr>
+          <th>Rating</th>
+          <th>Comment</th>
+          <th>User</th>
+        </tr>
+        <% for i in 0..@reviews.size-1 %>
+          <tr>
+            <td><div class="star-rating" data-score= <%= @reviews[i].rating %> ></div></td>
+            <td><%= @reviews[i].comment %></td>
+            <td><%= @users[i].username %></td>
+          </tr>  
+        <% end %>
+      </table>
+    <% end %>
+  </article>
+</section>
+<section class="row justify-content-center">
+  <h3 class="posts">Posts Uploaded</h3>
+  <% if @posts.blank? %>
+    <p class="no_post">No post</p>
+  <% else %>
+    <table class="table table-bordered posts">
+      <tr class="menu_heading bg-primary"><th colspan="3">Posts</th></tr>
+      <tr>
+        <th>Post Body</th>
+        <th>Post Image</th>
+        <th>User</th>
+      </tr>
+      <% for i in 0..@posts.size-1 %>
+        <tr>
+          <td><%= @posts[i].body %></td>
+          <td>
+            <div>
+              <% if @posts[i].image.attached? %>
+                <% @posts[i].image.each do |img| %>
+                  <%= link_to (image_tag img, size: "300x300", class: 'gallery img-responsive',target: '_blank'),img %>
+                <% end %>
+              <% end %>
+            </div>
+          </td>
+          <td><%= @user[i].username %></td>
+        </tr>
+      <% end %>
+    </table>     
+  <% end %>
+</section>
+<script>
+  $(document).ready(function() {
+   $('.star-rating').raty({
+   readOnly: true,
+   score: function() {
+     return $(this).attr('data-score');
+   },
+   path: '/assets/'
+   });
+});
+ 
+</script>
+

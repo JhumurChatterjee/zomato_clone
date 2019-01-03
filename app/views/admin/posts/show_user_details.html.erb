@@ -1,0 +1,11 @@
+<h1>User Details</h1>
+<%= link_to request.referer, :class => "btn btn-secondary mb-2" do%>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<div class="card w-50">
+  <h2 class="card-header"><%= @user.username %></h2>
+  <div class="card-body">
+    <h3 class="card-title">Email of the User</h3>
+    <p class="card-text"><%= @user.email %></p>
+  </div>
+</div>

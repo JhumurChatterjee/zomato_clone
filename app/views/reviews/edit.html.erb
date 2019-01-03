@@ -1,0 +1,10 @@
+<h1>Edit Review</h1>
+<%= render 'form' %>
+
+<script>
+  $('#star-rating').raty({
+    half: true,
+    path: '/assets/',
+    scoreName: 'review[rating]'
+  });
+</script>

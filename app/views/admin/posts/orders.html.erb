@@ -1,0 +1,45 @@
+<h1>All Orders</h1>
+<%= link_to "Index Page",admin_posts_path, method: :get , class: "btn btn-secondary mb-2 float-right" %>
+  
+<table class="table table-bordered">
+  <thead class= "bg-dark">
+    <tr>
+      <th class="text-white">Order id</th>
+      <th class="text-white">Order date</th>
+      <th class="text-white">Order time</th>
+      <th class="text-white">Email</th>
+      <th class="text-white">Phone</th>
+      <th class="text-white">Address</th>
+      <th class="text-white">Total</th>
+      <th class="text-white">Restaurant</th>
+      <th class="text-white">Validity</th>
+      <th class="text-white">Items</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <% if @orders != [] %>
+      <% for i in 0..@orders.size-1 do %>
+        <tr>
+          <td><%=@orders[i].encrypt_id%></td>
+          <td><%=@orders[i].created_at.to_date%></td>
+          <td><%=@orders[i].start_time.to_s(:time)%></td>
+          <td><%= @orders[i].email%></td>
+          <td><%= @orders[i].phone %></td>
+          <td><%= @orders[i].full_address%></td>   
+          <td><%= @orders[i].total %></td>
+          <td><%= @restaurants[i] %></td>      
+          <td><%= @orders[i].validity%></td>
+          
+          <% @orders[i].hashing.each do |item,value| %>
+            <% @orders[i].hashing[item].each do |k,v| %>
+              <td><%= k %>,</td>
+            <% end %>
+          <% end %> 
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><td colspan="9">No Orders yet</td></tr>
+    <% end %>
+  </tbody>
+</table>

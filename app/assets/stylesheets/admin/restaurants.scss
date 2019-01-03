@@ -1,0 +1,40 @@
+// Place all the styles related to the admin/restaurants controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.restaurant:hover {
+  text-decoration: underline;
+}
+ 
+.destroy {
+  margin-left: 360px;
+  margin-bottom: 15px;
+}
+
+
+.restaurant_form {
+  margin: auto;
+  width: 50%;
+}
+
+.address {
+  color: #000000;
+  font-weight: bold;
+}
+
+.index {
+  margin-left: 305px;
+}
+
+.address:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.back_restaurant {
+  margin-left: 280px;
+}
+
+.button {
+  margin-right: 100px;
+}

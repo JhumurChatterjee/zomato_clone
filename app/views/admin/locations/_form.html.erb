@@ -1,0 +1,24 @@
+<div class = "card w-75">
+  <h5 class = "card-header">Create Location</h5>
+  <%= form_for [:admin, @location] do |f| %>
+    <div class="card-body">
+      <div class="row">  
+        <%= f.label :City,:class=>"col-sm-12 card-title" %>
+        <%= f.text_field :city, :class => "col-sm-10 form-control ml-3 mb-3" %>
+      </div>
+      <div class="row">  
+        <%= f.label :State,:class=>"col-sm-12 card-title" %>
+        <%= f.text_field :state, :class => "col-sm-10 form-control ml-3 mb-3" %>
+      </div>
+      <div class="row">  
+        <%= f.label :Street,:class=>"col-sm-12 card-title" %>
+        <%= f.text_field :street, :class => "col-sm-10 form-control ml-3 mb-3" %>
+      </div>
+      <div class="row">  
+        <%= f.label :Country,:class=>"col-sm-12 card-title" %>
+        <%= f.text_field :country, :class => "col-sm-10 form-control ml-3 mb-3" %>
+      </div>
+      <p><%= f.submit "Submit", :class => "btn btn-primary"%></p>
+    </div>
+  <% end %>
+</div>

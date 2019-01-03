@@ -1,0 +1,53 @@
+// Place all the styles related to the show_restaurant controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+aside.links {
+  width: 200px;
+  padding-left: 25px;
+  
+}
+
+.imgbox {
+  margin-bottom: 20px;
+}
+
+.menu_heading {
+  text-align: center;
+  color: #FFFFFF;
+  
+}
+
+.menu {
+  margin-top: 30px;
+}
+
+.user_menu {
+  width: 435px;
+  margin-left: 25px;
+  
+}
+
+.link_heading {
+  z-index: 0;
+}
+
+.reviews {
+  margin-top: 35px;
+  margin-left: 25px;
+}
+
+.posts {
+  margin-top: 30px;
+  margin-left: 25px;
+}
+
+.no_post {
+  margin-top: 60px;
+  margin-left: -30px;
+}
+
+.star-rating {
+  margin-left: 0px;
+}

@@ -1,0 +1,30 @@
+<%= link_to posts_url(id: session[:restaurant_id]), method: :get , class: "btn btn-secondary mb-2"  do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<div class="card w-50">
+  <%= form_for @review do |f| %>
+    <h5 class="card-header">Fill Review</h5>
+    <div class="card-body">
+      <%= f.label :rating %>
+      <div id="star-rating"></div>
+
+      <%= f.label :comment %>
+      <%= f.text_field :comment, :class=>"form-control" %> 
+      <%= f.hidden_field :approved,:value => false %>
+      <%= f.hidden_field :user_id,:value => current_user.id%>
+      <%= f.hidden_field :restaurant_id,:value => params[:rest_id] %>
+     
+      <div class="row">
+        <%= f.submit "Add", :class => "btn btn-primary ml-3 mt-3" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $('#star-rating').raty({
+    half: true,
+    path: '/assets/',
+    scoreName: 'review[rating]'
+  });
+</script>

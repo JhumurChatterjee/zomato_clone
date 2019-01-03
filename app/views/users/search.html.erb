@@ -1,0 +1,33 @@
+<h1>Restaurants in this Category </h1> 
+<% if @restaurants.blank? %>
+  <p>No restaurant </p>
+<%else%>
+  <ul class="list-group">
+    <li class="list-group-item bg-primary text-white"><span class="float-left ml-4">Restaurant</span>
+      <span class="float-right">Rating</span>
+    </li>
+    <% for i in 0..@restaurants.size-1 do %>  
+      <% for j in 0..@restaurants[i].size-1 do %>
+        <li class="list-group-item list-group-item-action"><%= link_to @restaurants[i][j].name,{:action => 'show_restaurant',:id => @restaurants[i][j].id}, :class => "login show" %>
+          <% if @reviews[j].count != 0 %>
+            <span class="star-rating float-right" id= "star" data-score= <%= @reviews[j].sum/@reviews[j].count %> ></span>
+          <% else %>  
+            <span class="float-right">No Rating </span>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
+<script>
+  $(document).ready(function() {
+   $('.star-rating').raty({
+   readOnly: true,
+   score: function() {
+     return $(this).attr('data-score');
+   },
+   path: '/assets/'
+   });
+});
+ 
+</script>

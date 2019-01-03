@@ -1,0 +1,31 @@
+<h1>Food Lists</h1>
+<%= link_to admin_restaurants_url, method: :get , class: "btn btn-secondary mb-2" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<% if @restaurant.food_menu.blank? %>
+  <p><b>No food for now</b></p>
+<% else %>
+  <table class="table table-bordered w-50">
+    <thead>
+      <tr>
+        <th>Food Item</th>
+        <th>Food Price</th>
+      </tr>
+    <tbody>
+      <% if @restaurant.food_menu != {} %>
+        <% @restaurant.food_item.each_slice(2) do |food| %>
+          <tr>
+            <td><%= food[0] %></td>
+            <td><%= food[1] %>
+            <%= link_to "Delete Item", admin_delete_food_url(id: @restaurant.id, item: food[0], price: food[1]), :class => "btn btn-danger ml-5", data: {:confirm => "Are you sure?"} %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="2">No food</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+<%= link_to "Add new Food", admin_new_food_url(id: @restaurant.id), :class => "btn btn-primary" %>
+<%= link_to "Edit Food",admin_edit_food_url(id: @restaurant.id), :class => "btn btn-primary" %>
+

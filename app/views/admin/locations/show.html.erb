@@ -1,0 +1,32 @@
+<h1>Location</h1>
+<%= link_to admin_locations_url, method: :get , class: "btn btn-secondary mb-2" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<div class="card w-75 mb-3">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item"><%= link_to "Edit", edit_admin_location_path(@location), :class => "btn btn-light mb-3 ml-2" %></li>
+      <li class="nav-item"><%= link_to "View All", admin_locations_path, :class => "btn btn-light mb-3 ml-2" %></li>
+      <li class="nav-item"><%= link_to "Destroy", {:action => 'destroy', :id => @location.id}, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger mb-3 destroy_loc" %></li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Address:</h5>
+    <%= @location.full_address %>
+    <h5 class="card-title mt-2">Latitude:</h5>
+    <%= @location.latitude %>
+    <h5 class="card-title mt-2">Longitude:</h5>
+    <%= @location.longitude %>
+
+    <h3>Nearby locations</h3>
+    <ul>
+      <% if @location.nearbys(30) != [] %>
+        <% for location in @location.nearbys(30) %>
+          <li><%= link_to location.city, admin_location_path(location.id) ,:class => "login show" %> (<%= location.distance.round(2) %> miles)</li>
+        <% end %>
+      <% else %>
+        <p>No nearby locations found</p>
+      <% end %>
+    </ul>
+  </div>
+</div>

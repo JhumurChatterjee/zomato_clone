@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  four_seater: 1
+  six_seater: 1
+  two_seater: 1
+  restaurant: one
+
+two:
+  four_seater: 1
+  six_seater: 1
+  two_seater: 1
+  restaurant: two

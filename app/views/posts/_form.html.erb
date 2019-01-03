@@ -1,0 +1,26 @@
+<%= link_to posts_url(id: session[:restaurant_id]), method: :get , class: "btn btn-secondary mb-2"  do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<div class="card w-75">
+  <h5 class="card-header">Fill Details</h5>
+  <%= form_for @post, html: {:enctype => "multipart/form-data" } do |f|%>
+    <div class="card-body">
+      <p>
+        <%= f.label :body %><br>
+        <%= f.text_area :body %>
+      </p>
+      <%= f.hidden_field :restaurant_id,:value => params[:restaurant_id]%>
+      <%= f.hidden_field :user_id, :value => session[:user_id]%>
+      <%= f.hidden_field :approved, :value => false%>
+      <div class="form-group">
+        <%= f.label :uploads %><br/>
+        <%= f.file_field :image, multiple: true %>
+      </div>
+      <%= f.submit "Submit", :class=>"btn btn-primary" %>
+      <div class="row ml-1 mt-2">
+        <small>Note: After getting approved by admin Your posts will be seen in public</small>
+      </div>
+    </div>
+  <% end %>
+</div>
+

@@ -1,0 +1,43 @@
+<h1> Restaurants </h1>
+<%= link_to admin_posts_url, method: :get , class: "btn btn-secondary mb-2" do %>
+  <i class="fa fa-arrow-left"></i>
+<% end %>
+<%  if @restaurants != [] %>
+  <% for restaurant in @restaurants %>
+    <div class="card w-75 mb-3">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <%= link_to "Show",{:action => 'show', :id => restaurant.id},:class => "card-link btn btn-light" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Edit", {:action => 'edit', :id => restaurant.id},:class => "card-link btn btn-light" %>  
+          </li>
+          <li class="nav-item">
+            <%= link_to "Add Table record",new_admin_table_url(id: restaurant.id), :class => "card-link btn btn-light" %> 
+          </li>
+          <li class="nav-item">
+            <%= link_to "Add Food", admin_food_show_url(id: restaurant.id), :class => "card-link btn btn-light"%> 
+          </li>
+          <li class="nav-item">
+            <%= link_to "Destroy", {:action => 'destroy', :id => restaurant.id} ,data: {:confirm => 'Are you sure?', :method => :delete}, :class => "btn btn-danger destroy" %> 
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title"><%= restaurant.name %> </h4>
+        <h5 class="card-title">Category:</h5>
+        <p class="card-text"><%= restaurant.category %></p>
+        <h5 class="card-title">Location:</h5>
+        <p class="card-text"><%= restaurant.situated_at %></p>
+      
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <h4>No Restaurants Added</h4>
+<% end %>
+<%= link_to "New Restaurant", new_admin_restaurant_path, class: "btn btn-primary mt-2" %>
+  
+
+
